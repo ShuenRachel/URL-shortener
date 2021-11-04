@@ -3,6 +3,8 @@ const app = express()
 const mongoose = require('mongoose')
 const db = mongoose.connection
 const PORT = 3000
+const exphbs = require('express-handlebars')
+const urlModel = require('./models/url')
 
 mongoose.connect('mongodb://localhost/url-shortener')
 
@@ -14,8 +16,11 @@ db.once('open', () => {
   console.log('Mongodb connected!')
 })
 
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+
 app.get('/', (req, res) => {
-  res.send('<h1>This is for URL shortener project</h1>')
+  res.render('index')
 })
 
 app.listen(PORT, () => {
