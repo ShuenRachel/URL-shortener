@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
+app.get('/', (req, res) => {
+  res.render('index')
+})
+
 app.listen(PORT, () => {
   console.log(`URL shortener is running on http://localhost:${PORT}`)
 })
