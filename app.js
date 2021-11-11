@@ -31,7 +31,7 @@ app.post('/url', (req, res) => {
   const original_url = req.body.original_url.toLowerCase().trim()
   let code = generateCode()
 
-  urlModel.findOne({ original_url: original_url })
+  urlModel.findOne({ original_url })
     .lean()
     .then(data => {
       if (!data) {
