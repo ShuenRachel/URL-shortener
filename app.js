@@ -29,27 +29,19 @@ app.get('/', (req, res) => {
 
 app.post('/url', (req, res) => {
   const original_url = req.body.original_url.toLowerCase().trim()
-  const code = generateCode()
+  let code = generateCode()
 
-  console.log(`URL: ${original_url}, code: ${code}`)
-
-  return urlModel.create({ original_url, code })
+  urlModel.findOne({ original_url: original_url })
+    .lean()
+    .then(data => {
+      if (!data) {
+        urlModel.create({ original_url, code })
+      } else {
+        code = data.code
+      }
+    })
     .then(() => res.redirect(`/url/result/${code}`))
     .catch(error => console.log(error))
-  // return urlModel.findOne({ original_url: original_url })
-  //   .lean()
-  //   .then(data => console.log('result:' , data))
-  //   .then(() => res.redirect('/'))
-  //   .catch(error => console.log(error))
-  
-  // urlModel.exists({ original_url: original_url }, function (err, result) {
-  //   if (err) {
-  //     console.log(err)
-  //   } else {
-  //     console.log(result)
-  //   }
-  //   res.redirect('/')
-  // })
 })
 
 app.get('/url/result/:code', (req, res) => {
