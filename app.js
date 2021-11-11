@@ -34,7 +34,7 @@ app.post('/url', (req, res) => {
   console.log(`URL: ${original_url}, code: ${code}`)
 
   return urlModel.create({ original_url, code })
-    .then(() => res.redirect('/'))
+    .then(() => res.redirect(`/url/result/${code}`))
     .catch(error => console.log(error))
   // return urlModel.findOne({ original_url: original_url })
   //   .lean()
@@ -50,6 +50,11 @@ app.post('/url', (req, res) => {
   //   }
   //   res.redirect('/')
   // })
+})
+
+app.get('/url/result/:code', (req, res) => {
+  const code = req.params.code
+  res.render('result', { PORT , code })
 })
 
 app.listen(PORT, () => {
