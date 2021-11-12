@@ -49,6 +49,15 @@ app.get('/url/result/:code', (req, res) => {
   res.render('result', { PORT , code })
 })
 
+app.get('/:code', (req, res) => {
+  const code = req.params.code
+
+  urlModel.findOne({ code })
+    .lean()
+    .then(data => res.redirect(`${data.original_url}`))
+    .catch(error => console.log(error))
+})
+
 app.listen(PORT, () => {
   console.log(`URL shortener is running on http://localhost:${PORT}`)
 })
