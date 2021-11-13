@@ -1,4 +1,4 @@
-const urlModel = require('./models/url')
+const urlModel = require('../models/url')
 
 function generateCode() {
   const lowerCaseLetters = 'abcdefghijklmnopqrstuvwxyz'
