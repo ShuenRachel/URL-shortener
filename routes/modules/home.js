@@ -14,7 +14,10 @@ router.get('/:code', (req, res) => {
   urlModel.findOne({ code })
     .lean()
     .then(data => res.redirect(`${data.original_url}`))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error)
+      res.render('error')
+    })
 })
 
 module.exports = router
