@@ -5,7 +5,7 @@ const PORT = 3000
 const generateCode = require('../../utils/generate_code')
 
 router.post('/', (req, res) => {
-  const original_url = req.body.original_url.toLowerCase().trim()
+  const original_url = req.body.original_url.trim()
   let code = generateCode()
 
   urlModel.findOne({ original_url })
